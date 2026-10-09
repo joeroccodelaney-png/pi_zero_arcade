@@ -33,9 +33,15 @@ KEYMAP = {
 }
 
 
+#===== Raised inside the game loop when the emulator window is closed =====#
+class EmulatorClosed(SystemExit):
+    pass
+
+
 #===== Desktop window that acts as the LCD + buttons =====#
 class Window:
     def __init__(self):
+        self.closed = False
         self.root = tk.Tk()
         self.root.title("Mini Player (dev)")
         self.root.resizable(False, False)
@@ -47,7 +53,9 @@ class Window:
         self._last_pump = 0.0
         self.root.bind("<KeyPress>", self._on_press)
         self.root.bind("<KeyRelease>", self._on_release)
-        self.root.protocol("WM_DELETE_WINDOW", lambda: os._exit(0))
+        # The X button only sets a flag; the game loop notices it and exits cleanly.
+        # (os._exit would kill the whole Spyder kernel, not just the emulator.)
+        self.root.protocol("WM_DELETE_WINDOW", self._request_close)
         self.show(Image.new("RGB", (240, 240), "black"))
         self.root.focus_force()
 
@@ -77,6 +85,7 @@ class Window:
         self.photo = ImageTk.PhotoImage(img, master=self.root)
         self.label.configure(image=self.photo)
         self.root.update()
+        self._check_closed()
 
     def pump(self):
         # Throttled event processing so key state stays fresh while polling.
@@ -84,6 +93,22 @@ class Window:
         if now - self._last_pump > 0.004:
             self._last_pump = now
             self.root.update()
+            self._check_closed()
+
+    def _request_close(self):
+        self.closed = True
+
+    def _check_closed(self):
+        if self.closed:
+            raise EmulatorClosed(0)
+
+    def close(self):
+        """Destroy the window. Safe to call more than once."""
+        self.closed = True
+        try:
+            self.root.destroy()
+        except tk.TclError:
+            pass
 
 
 window = Window()
@@ -210,5 +235,11 @@ if __name__ == "__main__":
     print("  Left/Right shoulder: Q / W")
     print("Click the window first so it has keyboard focus.\n")
     sys.path.insert(0, HERE)
-    runpy.run_path(os.path.join(HERE, "main.py"), run_name="__main__")
+    try:
+        runpy.run_path(os.path.join(HERE, "main.py"), run_name="__main__")
+    except SystemExit:
+        pass          # main.py's sys.exit(), "Power off", or the window's X button
+    finally:
+        window.close()   # always take the window down, however the program ended
+        print("Emulator closed.")
 
