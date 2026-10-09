@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """
+PROPOSED replacement: Joey review and manual target installation required.
 Main program for the Mini_Player device
 Controls the flow of the program. 
 Starts with the Game Menu allows for a list of games to be chosen
@@ -14,6 +15,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 GAME_PATH = os.path.join(HERE, "games")
 sys.path.insert(0, GAME_PATH)
 from screen_runner import Screen_Runner
+from snake import SnakeGame
+from pong import PongGame
+from breakout import BreakoutGame
 
 
 player = Mini_Player()
@@ -38,6 +42,21 @@ while is_running:
         if selected_option == "Screen Runner":
             game = Screen_Runner(player)
             print("Game initialized, running")
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Snake":
+            game = SnakeGame(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Pong":
+            game = PongGame(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Breakout":
+            game = BreakoutGame(player)
             game_running = game.run()
             player.show_loading(label="Return to Main")
             time.sleep(2)
