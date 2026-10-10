@@ -39,7 +39,7 @@ class Invaders:
         self.player_x = 100
         self.shots = []
         self.bombs = []
-        self.invaders = [[(40 + j * 28, 30 + i * 22, True) for j in range(INVADER_COLS)]
+        self.invaders = [[[40 + j * 28, 30 + i * 22, True] for j in range(INVADER_COLS)]
                          for i in range(INVADER_ROWS)]
         self.dir = 1
         self.move_timer = 0.0
@@ -119,7 +119,7 @@ class Invaders:
 
         if not any(inv[2] for row in self.invaders for inv in row):
             self.score += 50
-            self.invaders = [[(40 + j * 28, 30 + i * 22, True) for j in range(INVADER_COLS)]
+            self.invaders = [[[40 + j * 28, 30 + i * 22, True] for j in range(INVADER_COLS)]
                              for i in range(INVADER_ROWS)]
 
         for row in self.invaders:

@@ -10,7 +10,7 @@ from luma.core.render import canvas
 
 class Game_Menu:
     # Display names must match explicit launcher dispatch branches.
-    GAMES = ["Screen Runner", "Snake", "Pong", "Breakout", "Asteroids", "Blocks", "Flappy", "Space Invader", "Frogger", "Pac-Man"]
+    GAMES = ["Screen Runner", "Snake", "Pong", "Breakout", "Asteroids", "Blocks", "Flappy", "Space Invader", "Frogger", "Pac-Man", "Whack-a-Mole"]
     ITEMS = [(n, "game") for n in GAMES] + [
         ("Power off", "off"),
         ("Exit to shell", "exit"),

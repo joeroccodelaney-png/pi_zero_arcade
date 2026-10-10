@@ -24,6 +24,7 @@ from flappy import FlappyGame
 from space_invader import Invaders
 from frogger import FroggerGame
 from pacman import PacManGame
+from whackamole import WhackAMole
 
 
 player = Mini_Player()
@@ -93,6 +94,11 @@ while is_running:
             time.sleep(2)
         elif selected_option == "Pac-Man":
             game = PacManGame(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Whack-a-Mole":
+            game = WhackAMole(player)
             game_running = game.run()
             player.show_loading(label="Return to Main")
             time.sleep(2)

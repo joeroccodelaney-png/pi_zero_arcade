@@ -91,14 +91,14 @@ class Mini_Player:
         except KeyboardInterrupt:
             self.clear()
     #===== Draw Splash Screen =====#
-    def draw_splash(self):
+    def draw_splash(self, delay1 = 5, delay2 = 5):
         with canvas(self.device) as draw:
             img = Image.open(self.SPLASH_IMG).convert("RGB").resize((240,240))
             self.device.display(img)
-            time.sleep(3)
+            time.sleep(delay1)
             ImageDraw.Draw(img).text((20, 100), "Mini Player",font=self.SPLASH_FONT, fill=(220,0,100))
             self.device.display(img)
-            time.sleep(3)
+            time.sleep(delay2)
     def show_loading(self, label="Loading..."):
         try:
             img = Image.open(self.LOADING_IMG).convert("RGB").resize((240,240))
@@ -115,3 +115,6 @@ class Mini_Player:
             draw.rectangle(self.device.bounding_box, fill="black")
             for i, line in enumerate(lines):
                 draw.text((14, 70 + i * 30), line, font=self.ITEM_FONT, fill="white")
+    def text(self, font, msg, center, color=(255,255,255)):
+        surf = font.render(msg, True, color)
+        self.screen.blit(surf, surf.get_rect(center=center))
