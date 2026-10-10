@@ -60,7 +60,7 @@ if _RUN_HERE:
     KEYMAP = {
         "up": "PAD_UP", "down": "PAD_DOWN", "left": "PAD_LEFT", "right": "PAD_RIGHT",
         "space": "PAD_PRESS",
-        "z": "BTN_A", "x": "BTN_B", "a": "BTN_X", "s": "BTN_Y",
+        "x": "BTN_A", "s": "BTN_B", "z": "BTN_X", "a": "BTN_Y",
         "return": "BTN_START", "escape": "BTN_SELECT", "backspace": "BTN_SELECT",
         "q": "BTN_LEFT", "w": "BTN_RIGHT",
     }
@@ -264,7 +264,7 @@ if _RUN_HERE:
     if __name__ == "__main__":
         print("Mini Player dev emulator")
         print("  D-pad: arrow keys    PAD_PRESS: Space")
-        print("  A: Z   B: X   X: A   Y: S   Start: Enter   Select: Esc/Backspace")
+        print("  A: x   B: S   X: Z   Y: A   Start: Enter   Select: Esc/Backspace")
         print("  Left/Right shoulder: Q / W")
         print("Click the window first so it has keyboard focus.\n")
         sys.path.insert(0, HERE)

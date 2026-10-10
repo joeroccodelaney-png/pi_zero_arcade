@@ -29,11 +29,11 @@ WIN_SCORE = 10
 #===== Simple pong game implementation using pygame and PIL image =====#
 class PongGame:
     PAD_WIDTH, PAD_HEIGHT = 5, 20
-    PAD_SPEED = 120          # pixels per second (player)
+    PAD_SPEED = 60          # pixels per second (player)
     PAD_BOOST = 2            # multiplier while holding A
     NPC_SPEED = 80           # pixels per second (computer) - lower = easier
     BALL_SIZE = 4            # radius
-    BALL_MAX_DX = 8
+    BALL_MAX_DX = 20
     BG_COLOR = (10, 10, 40)
 
     def __init__(self, mini_player):
@@ -130,7 +130,8 @@ class PongGame:
             self.paddle1_y = self._clamp_pad(self.paddle1_y - speed * dt)
         if 'PAD_DOWN' in keys:
             self.paddle1_y = self._clamp_pad(self.paddle1_y + speed * dt)
-
+        if 'BTN_B' in new:
+            self.ball_dy = -self.ball_dy
         if self.serve:
             self._attach_ball()
             if self.serve_owner == 1:
