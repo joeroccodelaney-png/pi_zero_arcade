@@ -18,11 +18,17 @@ from screen_runner import Screen_Runner
 from snake import SnakeGame
 from pong import PongGame
 from breakout import BreakoutGame
+from asteroids import Asteroids
+from blocks import Blocks
+from flappy import FlappyGame
+from space_invader import Invaders
+from frogger import FroggerGame
+from pacman import PacManGame
 
 
 player = Mini_Player()
 
-Mini_Player.draw_splash(player)
+Mini_Player.draw_splash(player, delay1=2, delay2=1)
 menu = Game_Menu(player)
 selected_option = menu.run()
 is_running = True
@@ -57,6 +63,36 @@ while is_running:
             time.sleep(2)
         elif selected_option == "Breakout":
             game = BreakoutGame(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Asteroids":
+            game = Asteroids(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Blocks":
+            game = Blocks(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Flappy":
+            game = FlappyGame(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Space Invader":
+            game = Invaders(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Frogger":
+            game = FroggerGame(player)
+            game_running = game.run()
+            player.show_loading(label="Return to Main")
+            time.sleep(2)
+        elif selected_option == "Pac-Man":
+            game = PacManGame(player)
             game_running = game.run()
             player.show_loading(label="Return to Main")
             time.sleep(2)
